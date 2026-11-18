@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 540" width="1080" height="540" role="img" aria-label="两组并列柱状示意图：结构相似与因果相似">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 540" width="1080" height="540" role="img" aria-label="两幅并列示意图：用地构成柱状图与观测模拟折线图">
   <g font-family="'霞鹜文楷','LXGW WenKai',KaiTi,'Microsoft YaHei',sans-serif">
-    <text x="60" y="52" font-size="30" fill="#000">结构相似</text>
-    <text x="600" y="52" font-size="30" fill="#000">因果相似</text>
+    <text x="60" y="52" font-size="30" fill="#000">用地构成</text>
+    <text x="600" y="52" font-size="30" fill="#000">观测与模拟</text>
 
     <!-- 左：条形 -->
     <g>
@@ -12,7 +12,7 @@
       <rect x="280" y="200" width="64" height="250" fill="#f6f8fa" stroke="#57606a" stroke-width="2"/>
       <rect x="370" y="330" width="64" height="120" fill="#f6f8fa" stroke="#57606a" stroke-width="2"/>
       <rect x="460" y="270" width="64" height="180" fill="#f6f8fa" stroke="#57606a" stroke-width="2"/>
-      <text x="290" y="500" font-size="24" fill="#57606a" text-anchor="middle">特征维度</text>
+      <text x="290" y="500" font-size="24" fill="#57606a" text-anchor="middle">用地类型</text>
     </g>
 
     <!-- 右：折线 -->
@@ -23,7 +23,11 @@
       <polyline points="600,420 690,360 780,240 870,260 960,180 1050,200" fill="none" stroke="#94070a" stroke-width="3"/>
       <circle cx="780" cy="240" r="7" fill="#94070a"/>
       <circle cx="960" cy="180" r="7" fill="#94070a"/>
-      <text x="830" y="500" font-size="24" fill="#57606a" text-anchor="middle">干预强度</text>
+      <line x1="826" y1="92" x2="856" y2="92" stroke="#94070a" stroke-width="3"/>
+      <text x="864" y="100" font-size="21" fill="#94070a">观测</text>
+      <line x1="936" y1="92" x2="966" y2="92" stroke="#57606a" stroke-width="2" stroke-dasharray="7 6"/>
+      <text x="974" y="100" font-size="21" fill="#57606a">模拟</text>
+      <text x="830" y="500" font-size="24" fill="#57606a" text-anchor="middle">月份</text>
     </g>
 
     <text x="540" y="525" font-size="22" fill="#57606a" text-anchor="middle">示意图，非真实数据</text>

@@ -13,7 +13,7 @@ math: katex
 
 张三 (Zhang San)
 
-北京大学 哲学系
+北京大学 某院系
 
 2026 / 11
 
@@ -81,7 +81,7 @@ math: katex
 
 引用用 `>`，主题把字号收到 25px 并加一条竖线，适合放论文原句：
 
-> 表征不是符号的影子，而是可被操作的结构。
+> 城市不是建筑的集合，而是人流、物流与信息流交织的场。
 >
 > —— 匿名审稿人
 
@@ -89,8 +89,8 @@ math: katex
 
 <div class="theorem">
   <table>
-    <tr><th>定义 1</th><td>若两个表征在干预下保持同构，则称它们承载相同的特征。</td></tr>
-    <tr><th>性质</th><td>这种同构是等价关系：自反、对称、传递。</td></tr>
+    <tr><th>定义 1</th><td>若两个街区在任意通勤距离上的出行强度都相同，则称二者的可达性等价。</td></tr>
+    <tr><th>性质</th><td>这种等价关系是自反、对称、传递的。</td></tr>
   </table>
 </div>
 
@@ -98,16 +98,16 @@ math: katex
 
 ## **公式与代码**
 
-行内公式跟正文同一字号，例如 $h \in \mathbb{R}^{d}$ 就嵌在句子里；行间公式单独居中，并放大到 1.1em：
+行内公式跟正文同一字号，例如街区日均气温记作 $\overline{T}$，就嵌在句子里；行间公式单独居中，并放大到 1.1em：
 
 $$
-\cos(h_1, h_2) = \frac{\langle h_1,\, h_2 \rangle}{\lVert h_1 \rVert \, \lVert h_2 \rVert}
+\Delta T = \overline{T}_{\mathrm{u}} - \overline{T}_{\mathrm{r}}
 $$
 
-代码块保留默认主题的等宽字体和浅灰底，行内代码则跟着正文走：
+其中下标 $\mathrm{u}$、$\mathrm{r}$ 分别表示城区与郊区，两者之差即热岛强度。代码块保留默认主题的等宽字体和浅灰底，行内代码则跟着正文走：
 
 ```js
-const cosine = (a, b) => dot(a, b) / (norm(a) * norm(b));
+const heatIsland = (urban, rural) => urban - rural;
 ```
 
 ---
@@ -136,7 +136,7 @@ const cosine = (a, b) => dot(a, b) / (norm(a) * norm(b));
 
 1. Author A, Author B. *Title of the Paper*. Journal of Something, 2024, 12(3): 45–67.
 2. Author C. *Another Book Chapter*. In: Edited Volume. Publisher, 2023: 101–120.
-3. 作者丁. 一篇中文论文的标题. 某学报, 2025, 40(2): 1–18.
+3. 作者丁. 城市热岛强度的空间格局与驱动因素. 某学报, 2025, 40(2): 1–18.
 
 <small>以上均为占位条目，发表前请替换为真实文献。</small>
 
