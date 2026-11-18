@@ -10,3 +10,7 @@ examples/demo.*.png
 .DS_Store
 Thumbs.db
 *.log
+
+# 打好的发布包
+marp-theme-pku-scholar-*.zip
+

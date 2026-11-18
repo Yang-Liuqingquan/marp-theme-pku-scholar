@@ -167,7 +167,68 @@ npm run check
 
 ## 使用主题
 
-### 1. 讲稿开头写 front matter
+### 1. 把主题文件放到讲稿旁边
+
+主题一共两样东西：一个 CSS 文件，和一张校徽图片。所谓「放对位置」，指的是这两样东西**相对你的讲稿**摆在哪儿 —— Marp 认的是路径，没有「安装到系统里」这一步。
+
+最小可用的目录长这样：
+
+```
+我的报告/
+├── talk.md                 ← 你的讲稿，文件名随意
+├── themes/
+│   └── pku-scholar.css     ← 主题文件
+└── images/
+    └── pku-logo.png        ← 校徽；缺了它，右上角就是空白
+```
+
+从仓库里把这两样东西复制过去（在仓库根目录执行，`我的报告` 换成你自己的路径）：
+
+```powershell
+# Windows PowerShell
+$dest = "$env:USERPROFILE\Desktop\我的报告"
+New-Item -ItemType Directory -Force -Path "$dest\themes", "$dest\images" | Out-Null
+Copy-Item themes\pku-scholar.css "$dest\themes\"
+Copy-Item examples\images\pku-logo.png "$dest\images\"
+```
+
+```bash
+# macOS / Linux
+mkdir -p ~/Desktop/我的报告/{themes,images}
+cp themes/pku-scholar.css ~/Desktop/我的报告/themes/
+cp examples/images/pku-logo.png ~/Desktop/我的报告/images/
+```
+
+然后在**这个文件夹里**写讲稿、跑命令：
+
+```powershell
+cd "$env:USERPROFILE\Desktop\我的报告"
+marp --theme-set themes --preview talk.md
+```
+
+三个最容易搞错的地方：
+
+| 你填的东西 | 相对谁算 | 放错时的症状 |
+|---|---|---|
+| `--theme-set themes` | 你**运行命令时所在的目录** | 在别的目录里跑：报找不到主题，或悄悄用了默认主题 |
+| front matter 的 `theme: pku-scholar` | 是**名字**，不是路径 | 名字和 CSS 里的 `@theme pku-scholar` 不一致 → 主题不生效 |
+| 主题里的 `url('./images/pku-logo.png')` | **讲稿所在目录**，不是 CSS 所在目录 | 把 `images/` 放到 `themes/` 旁边 → 校徽静默消失 |
+
+最后一条最反直觉：校徽虽然写在主题 CSS 里，却是按**讲稿的位置**去找文件的。所以 `images/` 永远跟讲稿同级。
+
+想省事就直接把整个 `examples/` 复印成自己的文件夹，位置天然是对的：
+
+```powershell
+New-Item -ItemType Directory 我的报告
+Copy-Item examples\* 我的报告 -Recurse
+Rename-Item 我的报告\demo.md talk.md
+```
+
+**VS Code 里同理**：`.vscode/settings.json` 里的 `markdown.marp.themes` 相对**工作区根目录**算，默认值 `./themes/pku-scholar.css` 对应的就是上面这个结构；换到自己的文件夹时，记得把 `themes/` 和 `images/` 一起带过去（操作步骤见开头「推荐用法」）。
+
+放好之后先验一眼：预览里右上角有校徽、标题是北大红，就说明路径都对了。只看到正文、没有校徽，多半是 `images/` 位置不对 —— 导出时 Marp 会提示 `The local file is missing and will be ignored.`。
+
+### 2. 讲稿开头写 front matter
 
 ```markdown
 ---
@@ -180,19 +241,6 @@ math: katex
 
 - `theme: pku-scholar` 对应 `themes/pku-scholar.css` 里 `@theme pku-scholar` 的声明，名字必须一致。
 - `math: katex` 打开公式排版（`$...$` 与 `$$...$$`）。
-
-### 2. 从示例起步
-
-`examples/demo.md` 是一份 12 页的完整模板，连同它旁边的 `images/` 一起复制走就能改：
-
-```bash
-cp -r examples my-talk
-mv my-talk/demo.md my-talk/talk.md
-```
-
-结构是 `my-talk/talk.md` + `my-talk/images/`（校徽、示意图都在里面）。**`images/` 必须跟讲稿同级**，因为主题里的校徽写的是相对路径 `url('./images/pku-logo.png')`。
-
-也可以只复制主题 CSS 到自己已有的讲稿目录，再放一张同名校徽进去。
 
 ### 3. 一页怎么写
 
