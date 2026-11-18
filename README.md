@@ -4,7 +4,7 @@
 >
 > A Marp theme for Chinese academic talks, in the PKU visual style.
 
-![主题预览](assets/preview.png)
+![主题预览](assets/preview-v2.png)
 
 主题本体只有一个文件：`themes/pku-scholar.css`。它继承 Marp 官方默认主题（`@import 'default'`），只覆盖真正需要改的部分，因此列表、表格、代码块、引用这些排版都跟默认主题一致。
 
@@ -336,7 +336,7 @@ npm run build:png  # 导出逐页 PNG（examples/demo.001.png …）
 ├── examples/demo.md              # 12 页完整模板
 ├── examples/images/pku-logo.png  # 校徽（直接替换这个文件即可）
 ├── examples/images/*.svg         # demo 用的示意图（手绘 SVG，可替换）
-├── assets/preview.png            # README 预览图
+├── assets/preview-v2.png         # README 预览图
 ├── .vscode/settings.json         # 注册主题的 VS Code 工作区设置
 ├── scripts/check-theme.mjs       # 主题自检
 └── .github/workflows/pages.yml   # 用 GitHub Pages 发布 demo
