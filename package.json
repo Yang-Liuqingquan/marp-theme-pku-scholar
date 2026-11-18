@@ -1,0 +1,27 @@
+{
+  "name": "marp-theme-pku-scholar",
+  "version": "1.0.0",
+  "description": "北京大学风格的中文学术报告 Marp 主题",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "Yang Liuqingquan",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "themes",
+    "assets"
+  ],
+  "scripts": {
+    "check": "node scripts/check-theme.mjs",
+    "preview": "marp --theme-set themes --html --preview examples/demo.md",
+    "build:html": "marp --theme-set themes --html examples/demo.md -o examples/demo.html",
+    "build:pdf": "marp --theme-set themes --html --allow-local-files --pdf examples/demo.md -o examples/demo.pdf",
+    "build:png": "marp --theme-set themes --html --allow-local-files --images png examples/demo.md -o examples/demo.png",
+    "build": "npm run check && npm run build:html && npm run build:pdf"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.2.3"
+  }
+}

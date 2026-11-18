@@ -1,0 +1,12 @@
+node_modules/
+_verify/
+
+# 本地构建产物
+examples/*.html
+examples/*.pdf
+examples/demo.*.png
+
+# 编辑器与系统
+.DS_Store
+Thumbs.db
+*.log

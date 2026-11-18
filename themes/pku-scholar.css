@@ -1,0 +1,382 @@
+/**
+ * pku-scholar — 北京大学风格的中文学术报告 Marp 主题
+ *
+ * 用法：
+ *   1) front matter 里写 `theme: pku-scholar`
+ *   2) 渲染时把本目录交给 marp：
+ *        marp --theme-set ./themes --pdf --allow-local-files talk.md
+ *
+ * 设计原则：
+ *   - 继承而不复制：`@import 'default'` 提供 Marp 默认主题的全部排版，
+ *     本文件只写真正需要改的规则。
+ *   - 一切可调项走 CSS 变量（见第 1 段），讲稿里覆盖变量即可，不必 `!important`。
+ *   - 工具类（.dense/.tight/.xs/.refs/.fig）用 :where() 压低优先级，讲稿里的
+ *     <style> 永远能盖住主题。
+ *
+ * 修改后请运行：npm run check
+ */
+
+/*!
+ * @theme pku-scholar
+ * @author Yang Liuqingquan
+ *
+ * @size 16:9 1280px 720px
+ * @auto-scaling true
+ */
+
+@import 'default';
+
+/* ==========================================================================
+ * 1. 设计令牌
+ *    全部挂在 section 上，沿继承树传给整页内容；讲稿里 `section { --pku-... }`
+ *    即可换字体/换色/换校徽。
+ * ========================================================================== */
+
+section {
+  /* 字体：标题用霞鹜文楷，引文、定理与封面作者行用寒蝉正楷体。
+     两款都是楷体，回退栈一律落到系统楷体，最后才是通用 serif。 */
+  --pku-serif: '霞鹜文楷', 'LXGW WenKai', KaiTi, 楷体, STKaiti, serif;
+  --pku-kai: 'ChillKai', 'LXGW WenKai', KaiTi, 楷体, STKaiti, serif;
+
+  /* 颜色 */
+  --pku-ink: #000;
+  --pku-accent: #94070a; /* 北大红 */
+
+  /* 右上角校徽。默认指向讲稿同级的 images/pku-logo.png：换成自己的图只要覆盖
+     这个文件，不用改 CSS。换路径或去掉校徽，在讲稿里覆盖 `--pku-logo` 即可
+     （见 README「换校徽」）。 */
+  --pku-logo: url('./images/pku-logo.png');
+
+  /* 对接 Marp 默认主题的变量：标题颜色、标题内 strong 的颜色 */
+  --h1-color: var(--pku-ink);
+  --heading-strong-color: var(--pku-accent);
+}
+
+/* ==========================================================================
+ * 2. 画布、校徽与正文基线
+ * ========================================================================== */
+
+section {
+  padding-top: 155px; /* 给钉在左上角的页标题留位置 */
+  background-image: var(--pku-logo);
+  background-repeat: no-repeat;
+  background-position: 96% 5%;
+  background-size: 100px;
+}
+
+p,
+li,
+table {
+  font-size: 30px;
+}
+
+th,
+td {
+  font-size: 27.5px;
+}
+
+/* ==========================================================================
+ * 3. 标题
+ * ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--pku-serif);
+}
+
+h3 {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 37.5px;
+  font-weight: 400;
+}
+
+h5 {
+  font-size: 35px;
+  font-weight: 400;
+}
+
+h6 {
+  font-size: 32.5px;
+  font-weight: 400;
+}
+
+/* 正文页标题：每页只放一个 h2，钉在左上角、不占正文流 */
+section > h2:first-child {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  margin: 0;
+  text-align: left;
+  font-size: 60px;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+ * 4. 封面页与小节页
+ *    用法：整页内容包进 <div class="titlePage"> 或 <div class="sectionPage">。
+ * ========================================================================== */
+
+div.titlePage,
+div.sectionPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
+}
+
+div.titlePage {
+  align-items: center;
+  text-align: center;
+}
+
+div.sectionPage {
+  align-items: flex-start;
+  text-align: left;
+}
+
+div.titlePage h1 {
+  font-size: 65px;
+  font-weight: 400;
+}
+
+div.sectionPage h1 {
+  font-size: 60px;
+  font-weight: 425;
+}
+
+div.titlePage p,
+div.sectionPage p {
+  font-size: 35px;
+  font-family: var(--pku-kai);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+ * 5. 列表
+ * ========================================================================== */
+
+ul li::marker {
+  font-size: 0.8em;
+}
+
+ol li::marker {
+  font-family: var(--pku-kai);
+  font-size: 1.2em;
+}
+
+/* ==========================================================================
+ * 6. 代码块
+ * ========================================================================== */
+
+pre {
+  max-width: 80%;
+  margin: 20px auto;
+}
+
+/* ==========================================================================
+ * 7. 引用
+ * ========================================================================== */
+
+blockquote {
+  max-width: 90%;
+  margin: 20px auto;
+  font-size: 25px;
+  font-family: var(--pku-kai);
+  line-height: 1.5;
+}
+
+blockquote > p {
+  margin: 0.1em 0;
+  font-size: 30px;
+}
+
+blockquote :is(ul, ol) {
+  margin: 0.5em 0;
+}
+
+blockquote li {
+  margin: 0.1em 0;
+}
+
+blockquote > ul > li,
+blockquote > ol > li {
+  font-size: 30px;
+}
+
+/* ==========================================================================
+ * 8. 图片
+ *    288px = 720px 画布下 40vh 的等效值；用 px 是为了 HTML 预览与 PDF 一致。
+ *    需要更大图时用 `![w:800](...)` 或 :where 般的工具类 `.fig`。
+ * ========================================================================== */
+
+img {
+  display: block;
+  max-width: 90%;
+  max-height: 288px;
+  margin: 1rem auto;
+}
+
+[style*="background-image"] {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ==========================================================================
+ * 9. 表格
+ * ========================================================================== */
+
+section table {
+  display: table;
+  width: auto;
+  max-width: 90%;
+  margin: 1rem auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+thead tr {
+  background: #f6f8fa;
+  color: var(--pku-ink);
+}
+
+th {
+  letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+/* ==========================================================================
+ * 10. 定理 / 卡片
+ *     用法：<div class="theorem"> 里放一张两列表格（左标签、右内容）。
+ * ========================================================================== */
+
+div.theorem table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* 左列只放「定义 1」「性质」这类标签，固定成一窄列 */
+div.theorem tr:first-child > :first-child {
+  width: 18%;
+}
+
+div.theorem :is(td, th) {
+  text-align: left;
+}
+
+div.theorem th {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+div.theorem td {
+  padding: 0.5em;
+  font-size: 30px;
+  font-family: var(--pku-kai);
+}
+
+/* ==========================================================================
+ * 11. 数学（KaTeX）
+ *     用 section 前缀提高优先级，压过 KaTeX 自带的字号规则。
+ * ========================================================================== */
+
+.katex {
+  font-size: 1em;
+}
+
+section .katex-display {
+  display: block;
+  max-width: 95%;
+  margin: 0.8rem auto;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+section .katex .mord.text {
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+h1 .katex,
+h2 .katex {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+ * 12. 工具类
+ *     用 `<!-- _class: dense -->` 或 `<div class="...">` 调用。
+ *     :where() 让整条规则只按 section/元素算优先级，讲稿覆盖时无需 !important。
+ * ========================================================================== */
+
+/* 紧凑列表：条目多时用 */
+section:where(.dense) li {
+  font-size: 28px;
+}
+
+section:where(.dense) p {
+  margin-bottom: 0.35em;
+}
+
+/* 紧凑表格：行高收紧 */
+section:where(.tight) :is(th, td) {
+  padding: 0.26em 0.5em;
+}
+
+/* 更小的表格字号：单元格特别多时用 */
+section:where(.xs) :is(th, td) {
+  font-size: 25px;
+}
+
+/* 参考文献页：小字、紧行距 */
+section:where(.refs) li {
+  font-size: 23px;
+  line-height: 1.35;
+}
+
+section:where(.refs) small {
+  font-size: 16px;
+  color: #777;
+}
+
+/* 整页图：去掉校徽和内边距，图片顶到画布边 */
+section:where(.fig) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40px 34px;
+  background-image: none;
+}
+
+section:where(.fig) p {
+  margin: 0;
+}
+
+section:where(.fig) img {
+  max-width: 1190px;
+  max-height: 618px;
+  margin: 0;
+}

@@ -1,0 +1,4 @@
+{
+  "markdown.marp.themes": ["./themes/pku-scholar.css"],
+  "markdown.marp.html": "all"
+}
